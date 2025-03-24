@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .gallery img {
+            width: 180px;
+            height: 150px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .modal img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+        .modal button {
+            position: absolute;
+            top: 50%;
+            background: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 25px;
+            color: white;
+            cursor: pointer;
+        }
+        .caption {
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Extinct Animals Gallery</h1>
+    <div class="gallery">
+        <img src="image1.jpg" onclick="openModal(0)" alt="Yangtze River Dolphin">
+        <img src="image2.jpg" onclick="openModal(1)" alt="The Northern White Rhinoceros">
+        <img src="image3.jpg" onclick="openModal(2)" alt="The Spix Macaw">
+        <img src="image4.jpg" onclick="openModal(3)" alt="The Passenger Pigeon">
+        <img src="image5.jpg" onclick="openModal(4)" alt="The Golden Toad">
+        <img src="image6.jpg" onclick="openModal(5)" alt="Tecopa Pupfish">
+        <img src="image7.jpg" onclick="openModal(6)" alt="Falkland Islands Wolf">
+        <img src="image8.jpg" onclick="openModal(7)" alt="Pinta Island Tortoise">
+        <img src="image9.jpg" onclick="openModal(8)" alt="The Dodo">
+        <img src="image10.jpg" onclick="openModal(9)" alt="Schomburgk’s Deer">
+        <img src="image11.jpg" onclick="openModal(10)" alt="Javan Tiger">
+        <img src="image12.jpg" onclick="openModal(11)" alt="Madeiran Large White">
+        <img src="image13.jpg" onclick="openModal(12)" alt="Zanzibar Leopard">
+        <img src="image14.jpg" onclick="openModal(13)" alt="The Pyrenean Ibex">
+        <img src="image15.jpg" onclick="openModal(14)" alt="The Quagga">
+        <img src="image16.jpg" onclick="openModal(15)" alt="Bramble Cay Melomys">
+        <img src="image17.jpg" onclick="openModal(16)" alt="Smooth Handfish">
+        <img src="image18.jpg" onclick="openModal(17)" alt="West African Black Rhino">
+        <img src="image19.jpg" onclick="openModal(18)" alt="Round Island Burrowing Boa">
+        <img src="image20.jpg" onclick="openModal(19)" alt="Dutch Alcon Blue Butterfly">
+        <img src="image21.jpg" onclick="openModal(20)" alt="The Blue Walleye">
+        <img src="image22.jpg" onclick="openModal(21)" alt="Sheepbaa">
+        <img src="image23.jpg" onclick="openModal(22)" alt="The Syrian Elephant">
+        <img src="image24.jpeg" onclick="openModal(23)" alt="The Cyprus Dwarf Hippopotamus">
+    </div>
+    
+    <div class="modal" id="modal" onclick="closeModal(event)">
+        <span class="close" onclick="closeModal(event)">&times;</span>
+        <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+        <img id="modalImg" onclick="event.stopPropagation()">
+        <div class="caption" id="modalCaption"></div>
+        <button class="next" onclick="changeImage(1)">&#10095;</button>
+    </div>
+
+    <script>
+        let images = document.querySelectorAll('.gallery img');
+        let modal = document.getElementById('modal');
+        let modalImg = document.getElementById('modalImg');
+        let modalCaption = document.getElementById('modalCaption');
+        let currentIndex = 0;
+
+        function openModal(index) {
+            currentIndex = index;
+            modal.style.display = 'flex';
+            modalImg.src = images[currentIndex].src;
+            modalCaption.textContent = images[currentIndex].alt;
+        }
+        function closeModal(event) {
+            if (event.target === modal || event.target.classList.contains('close')) {
+                modal.style.display = 'none';
+            }
+        }
+        function changeImage(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = images.length - 1;
+            if (currentIndex >= images.length) currentIndex = 0;
+            modalImg.src = images[currentIndex].src;
+            modalCaption.textContent = images[currentIndex].alt;
+        }
+    </script>
+</body>
+</html>
